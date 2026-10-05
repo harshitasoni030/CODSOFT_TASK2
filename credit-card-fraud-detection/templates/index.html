@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Credit Card Fraud Detection</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+  <main class="container">
+    <header>
+      <h1>Credit Card Fraud Detection</h1>
+      <p>Enter the transaction details to check if it looks fraudulent.</p>
+    </header>
+
+    <form id="fraud-form" novalidate>
+      <div class="grid">
+        <label>Transaction date &amp; time
+          <input type="datetime-local" name="trans_date_trans_time" required>
+        </label>
+        <label>Amount (amt)
+          <input type="number" step="0.01" min="0" name="amt" required>
+        </label>
+        <label>Category
+          <select name="category" required>
+            {% for c in options['category'] %}<option value="{{ c }}">{{ c }}</option>{% endfor %}
+          </select>
+        </label>
+        <label>Gender
+          <select name="gender" required>
+            {% for g in options['gender'] %}<option value="{{ g }}">{{ g }}</option>{% endfor %}
+          </select>
+        </label>
+        <label>State
+          <select name="state" required>
+            {% for s in options['state'] %}<option value="{{ s }}">{{ s }}</option>{% endfor %}
+          </select>
+        </label>
+        <label>City population (city_pop)
+          <input type="number" min="0" name="city_pop" required>
+        </label>
+        <label>Customer latitude (lat)
+          <input type="number" step="any" name="lat" required>
+        </label>
+        <label>Customer longitude (long)
+          <input type="number" step="any" name="long" required>
+        </label>
+        <label>Merchant latitude (merch_lat)
+          <input type="number" step="any" name="merch_lat" required>
+        </label>
+        <label>Merchant longitude (merch_long)
+          <input type="number" step="any" name="merch_long" required>
+        </label>
+        <label>Date of birth (dob)
+          <input type="date" name="dob" required>
+        </label>
+      </div>
+
+      <div class="buttons">
+        <button type="submit" id="submit-btn">Check Transaction</button>
+        <button type="button" id="example-btn" class="secondary">Load example</button>
+        <button type="reset" class="secondary">Clear</button>
+      </div>
+    </form>
+
+    <section id="result" class="result hidden">
+      <div id="result-label"></div>
+      <div id="result-prob"></div>
+      <div class="bar"><div id="bar-fill"></div></div>
+    </section>
+    <p id="error" class="error hidden"></p>
+  </main>
+  <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+</body>
+</html>
